@@ -10,13 +10,20 @@ import { eventFormSchema } from "@/lib/validator"
 import * as z from "zod"
 import { eventDefaultValues } from "@/constants"
 import DropDown from "./DropDown"
+import { Textarea } from "@/components/ui/textarea"
+import FileUpload from "./FileUpload"
+import { useState } from "react"
+
 
 type EventFormProps = {
     userId: string,
     type: "Create" | "Update"
 }
 
+
 const EventForm = ({ userId, type }: EventFormProps) => {
+
+  const [files, setfiles] = useState<File[]>([])
   
   const initialValues = eventDefaultValues 
 
@@ -62,6 +69,38 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             )}
           />
         </div>
+
+        <div className="flex flex-col md:flex-row">
+          <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl className="h-72">
+                    <Textarea placeholder="Description" {...field} className="textarea rounded-2xl"/>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          <FormField
+              control={form.control}
+              name="imageUrl"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl className="h-72">
+                    <FileUpload
+                    onFiledChange ={field.onChange}
+                    imageUrl={field.value}
+                    setFiles={setfiles}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+        </div>
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>

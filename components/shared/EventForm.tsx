@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation"
 import { createEvent, updateEvent } from "@/lib/actions/event.actions"
 import { IEvent } from "@/lib/database/models/event.model"
 import { useUploadThing } from "@/lib/uplodething"
-import DropDown from "./DropDown"
+import Dropdown from "./DropDown"
 import { FileUploader } from "./FileUpload"
 
 
@@ -123,7 +123,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <DropDown onChangeHandler={field.onChange} value={field.value} />
+                  <Dropdown onChangeHandler={field.onChange} value={field.value} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
